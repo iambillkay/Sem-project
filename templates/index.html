@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comments Section</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="script.js" defer ></script>
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <p class="h1">Comments - (<span id="comment-count">0</span>)</p>
+            <p class="text">Join the conversation across the world and share your thoughts!</p>
+            <button><i class="fa-solid fa-ellipsis-vertical"></i></button>
+        </div>
+        <div class="screen" id="comments-screen">
+            <!-- Comments will be loaded here dynamically -->
+        </div>
+        <div class="form">
+            <div class="inner-form">
+                <p id="second-text">Leave a comment</p>
+                <input class="name" type="text" id="username-input" placeholder="Type name here...">
+                <br>
+                <textarea class="textarea" id="comment-input" placeholder="Share your Comments..."></textarea>
+                <br>
+                <input id="share" type="submit" value="Share">
+                <input id="cancel" type="button" value="Cancel">
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
