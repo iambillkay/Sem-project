@@ -1,38 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comments Section</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="script.js" defer ></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Comments</title>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Apply saved theme early (prevents flash) -->
+  <script>
+    (function(){
+      try {
+        const saved = localStorage.getItem('theme') || 'green';
+        document.documentElement.classList.add('theme-' + saved);
+      } catch(e){}
+    })();
+  </script>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
 </head>
 <body>
-    <div class="container">
-        <div class="top-bar">
-            <p class="h1">Comments - (<span id="comment-count">0</span>)</p>
-            <p class="text">Join the conversation across the world and share your thoughts!</p>
-            <button><i class="fa-solid fa-ellipsis-vertical"></i></button>
-        </div>
-        <div class="screen" id="comments-screen">
-            <!-- Comments will be loaded here dynamically -->
-        </div>
-        <div class="form">
-            <div class="inner-form">
-                <p id="second-text">Leave a comment</p>
-                <input class="name" type="text" id="username-input" placeholder="Type name here...">
-                <br>
-                <textarea class="textarea" id="comment-input" placeholder="Share your Comments..."></textarea>
-                <br>
-                <input id="share" type="submit" value="Share">
-                <input id="cancel" type="button" value="Cancel">
-            </div>
-        </div>
-    </div>
+  <div class="container">
+    <header class="top-bar">
+      <div class="top-left">
+        <p class="h1">Comments - (<span id="comment-count">0</span>)</p>
+        <p class="text">Join the conversation and share your thoughts!</p>
+      </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+      <!-- (Optional) theme switcher placeholder -->
+      <!-- Theme switcher -->
+<div class="theme-switcher">
+  <button id="theme-btn" title="Change Theme">
+    <i class="fa-solid fa-palette"></i>
+  </button>
+  <div id="theme-menu" class="theme-menu hidden">
+    <div data-theme="green">🌿 Green</div>
+    <div data-theme="dark">🌙 Dark</div>
+    <div data-theme="light">☀️ Light</div>
+    <div data-theme="blue">💧 Blue</div>
+  </div>
+</div>
+
+    </header>
+
+    <main class="screen" id="comments-screen" tabindex="0">
+      <!-- comments injected here -->
+    </main>
+
+    <footer class="form">
+      <div class="inner-form">
+        <label id="second-text">Leave a comment</label>
+        <input class="name" type="text" id="username-input" placeholder="Type name here...">
+        <textarea class="textarea" id="comment-input" placeholder="Share your Comments..."></textarea>
+        <div class="form-actions">
+          <button id="share" class="btn">Share</button>
+          <button id="cancel" class="btn secondary">Cancel</button>
+        </div>
+      </div>
+    </footer>
+  </div>
 </body>
-
 </html>

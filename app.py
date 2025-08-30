@@ -9,7 +9,7 @@ DATABASE = 'connects.db'
 
 def get_db_connection():
     conn = sqlite3.connect(DATABASE)
-    conn.row_factory = sqlite3.Row  # This allows accessing columns by name
+    conn.row_factory = sqlite3.Row  # Access columns by name
     return conn
 
 def init_db():
@@ -27,11 +27,30 @@ def init_db():
         conn.commit()
         conn.close()
 
-# Call init_db to ensure the table is created when the app starts
 init_db()
 
-# ----------FUNCTIONS (Adapted for Flask)----------
+# --------HELPER FUNCTION---------
+def time_ago(time_str):
+    """Convert timestamp string into 'time ago' format."""
+    now = datetime.now()
+    past = datetime.strptime(time_str, "%Y-%m-%d %H:%M:%S")
+    diff = now - past
 
+    seconds = diff.total_seconds()
+    minutes = int(seconds // 60)
+    hours = int(seconds // 3600)
+    days = int(seconds // 86400)
+
+    if seconds < 60:
+        return "Just now"
+    elif minutes < 60:
+        return f"{minutes} minute{'s' if minutes != 1 else ''} ago"
+    elif hours < 24:
+        return f"{hours} hour{'s' if hours != 1 else ''} ago"
+    else:
+        return f"{days} day{'s' if days != 1 else ''} ago"
+
+# ----------ROUTES----------
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -64,7 +83,7 @@ def get_comments_route():
             'id': row['id'],
             'username': row['username'],
             'comment': row['comment'],
-            'timestamp': row['timestamp']
+            'timestamp': time_ago(row['timestamp'])  # <-- formatted here
         })
     conn.close()
     return jsonify(comments)
